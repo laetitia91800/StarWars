@@ -1,0 +1,136 @@
+//page index
+
+body {
+  color:black;
+}
+
+#header {
+  background-color: silver;
+}
+
+#header h1 {
+
+  font-family: "Comic Sans MS" ;
+  color : darkgoldenrod;
+}
+
+#navigation li {
+  background-color: orange;
+  border-radius: 10px;
+
+}
+
+#navigation li a {
+  text-decoration: none;
+  font-size: 20px;
+
+}
+
+#navigation li a:hover {
+  color:white;
+}
+
+.panier li {
+
+  border-radius:40px ;
+}
+
+.image img {
+
+ height: 210px;
+}
+
+h2 {
+  font-size: 20px;
+  padding-top: 5px;
+}
+
+h2 a, .nameProduct, .dashName {
+  color : darkgoldenrod;
+}
+
+.product img {
+  margin: 10px;
+}
+
+.pagination {
+  text-align: center;
+}
+.pagination li{
+  display: inline-block;
+  font-size: 20px;
+}
+
+#footer {
+  background-color: silver;
+}
+
+#nav {
+  font-size: 20px;
+}
+
+//page product
+
+
+.description {
+
+  margin-top : 10px;
+}
+
+//page dashboard
+
+.btnAjout a  {
+  background-color : gray;
+  text-decoration: none;
+  color : orange;
+  padding : 2px;
+
+ }
+
+td {
+
+  border: 1px solid black;
+
+}
+
+
+
+.dashStatus {
+  color : #31708f;
+
+}
+//boutons
+.btnCreate, .btnUpdate, .btnConnex, .btnContact, .btnOrder, .btnValidOrder {
+
+  background-color: orange;
+  border: 3px solid silver;
+  border-radius: 5px;
+  color : white;
+}
+
+.btnCreate:hover, .btnUpdate:hover, .btnConnex:hover, .btnContact:hover, .btnOrder:hover,.btnValidOrder:hover  {
+
+  color: black;
+}
+
+//message
+
+.alert {
+
+  font-size: 15px;
+  color :blue;
+
+}
+
+//pop up
+
+#popup_name {
+
+  width: 400px;
+  height: 200px;
+  border: 5px solid grey;
+  border-radius: 10px;
+
+}
+
+
