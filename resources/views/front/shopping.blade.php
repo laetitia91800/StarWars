@@ -28,20 +28,21 @@
                 <p class ="big ma50"><b> Quantité commandé : </b>{{$cart['quantity']}}</p>
 
 
-            </div>
+            </div><br>
 
         @endforeach
 
         <div id="popup_name" class="popup_block center">
-            <p>Cette action validera votre panier définivement</p>
+            <img src={{url("assets/imgTheme/vador.png")}} class="fr mam"> <p class="big mam center">Attention !!<br> Jeune padawan, cette action validera ton panier définivement.<br><b>Click sur "ok" pour continuer</b></p>
+            <a href="{{url('storeOrder')}}">
+            <input id ="btnPopUp" class="btnValidOrder big w20 fl" type="submit" name="order" value="ok">
+            </a>
         </div>
 
         <p class="txtcenter bigger mtl"><b>Total général : {{$total}} €</b></p>
 
-        <div class="mam bigger clear fr">
-            <a href="{{url('storeOrder')}}">
-            <input id ="btnPopUp" class="btnValidOrder" type="submit" name="order" value="Commander">
-            </a>
+        <div class="mam bigger clear fr ">
+            <input id ="btnPop" class="btnValidOrder" type="submit" name="order" value="Commander">
         </div>
 
 

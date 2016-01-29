@@ -15,14 +15,14 @@
 <body>
 
 <header id="header" role="banner" class="line pam">
-    <h1>DASHBOARD</h1>
+    <h1 class="ma0">DASHBOARD</h1>
     <nav id="navigation">
         <ul class="pam txtcenter">
 
-            <li class="pam inbl"><a href="/">Site Public</a></li>
-            <li class="pam inbl"><a href="/logout/">Logout</a></li>
-            <li class="pam inbl"><a href="/product/">Dashboard</a></li>
-            <li class="pam inbl"><a href="/orderList/">Commandes</a></li>
+            <li class="pas inbl"><a href="/">Site Public</a></li>
+            <li class="pas inbl"><a href="/logout/">Logout</a></li>
+            <li class="pas inbl"><a href="/product/">Dashboard</a></li>
+            <li class="pas inbl"><a href="/orderList/">Commandes</a></li>
         </ul>
     </nav>
 </header>

@@ -28,7 +28,7 @@
        @endif
 
 
-        <li class="panier pas inbl fr"><a href="/shopping/" class="right"><img src={{url("assets/imgTheme/pictoPanier.png")}}></a></li>
+        <li class="panier pas inbl fr ma5"><a href="/shopping/" class="right"><img src={{url("assets/imgTheme/pictoPanier.png")}}></a></li>
         <p class="txtright">{{$number}} produits</p>
 
 

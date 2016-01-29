@@ -10,15 +10,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url('assets/css/knacss.min.css')}}" media="all">
     <link rel="stylesheet" href="{{url('assets/css/app.min.css')}}" media="all">
-    <link rel="stylesheet" href="{{url('assets/js/app.js')}}" media="all">
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="{{url('assets/js/app.js')}}"></script>
 
 </head>
 
 <body>
-<header id="header" role="banner" class="line pam">
-    <h1><img src={{url("assets/imgTheme/logo.png")}}>Store</h1>
+<header id="header" role="banner" class="line pa0">
+    <h1 class="ma0"><img src={{url("assets/imgTheme/logo.png")}}>Store</h1>
 
     @include('partials.nav')
 
