@@ -16,7 +16,6 @@
             <div>
                 <h2 class="ma0"><a href="{{url('prod',[$product->id, $product->slug])}}">{{$product->name}}</a></h2>
                 {{$product->abstract}}
-
                 <p><b>{{trans('app.price')}} :</b> {{$product->price}} €</p>
                 <p><b>{{trans('app.tag')}}</b>
                 @forelse($product->tags as $tag)
@@ -34,8 +33,6 @@
     @empty
             <p>No product</p>
     @endforelse
-
-
 
 
     {!! $products->links() !!}

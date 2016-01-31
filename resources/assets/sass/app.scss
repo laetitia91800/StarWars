@@ -1,48 +1,76 @@
-//page index
+/* ==== css CONTENT ====
+$1-Body
+$2-Header site public
+$3-Navigation site public
+$4-Accueil site public
+$5-Page produit
+$6-Espace privé
+$7-Dashbord
+$8-Pop Up
+$9-Pagination
+$10-Footer
+$11-Boutons
+$12-Message alerte
+=========================*/
+
+/* ============================================
+   $1-Body
+   ============================================ */
 
 body {
   color:black;
+  background: cornsilk url("effect.png") top right;
 }
 
+/* ============================================
+   $2-Header site public
+   ============================================ */
+
 #header {
-  background-color : silver;
+  background : url("header.jpg") no-repeat;
 }
 
 #header h1 {
-
   font-family: "Comic Sans MS" ;
   color : darkgoldenrod;
 }
 
-#navigation {
+/* ============================================
+   $3-Navigation site public
+   ============================================ */
 
+#navigation {
   margin : 0 10px;
 }
 
 #navigation li {
   background-color: orange;
   border-radius: 10px;
-
+  border: 1px solid maroon;
+  margin-right: 2px;
 }
 
 #navigation li a {
   text-decoration: none;
   font-size: 20px;
-
+  color: white;
 }
 
 #navigation li a:hover {
-  color:white;
+  color: maroon;
 }
 
-.panier li {
-
-  border-radius:40px ;
+.nbrProduct {
+  color : white;
 }
+
+/* ============================================
+   $4-Accueil site public
+   ============================================ */
 
 .image img {
-
- height: 210px;
+  height: 210px;
+  border: 2px solid burlywood;
 }
 
 h2 {
@@ -51,12 +79,74 @@ h2 {
 }
 
 h2 a, .nameProduct, .dashName {
-  color : darkgoldenrod;
+  color: maroon;
 }
 
+.product {
+  min-height:250px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border : 4px solid burlywood;
+}
 .product img {
   margin: 10px;
 }
+
+/* ============================================
+   $5-Page produit
+   ============================================ */
+
+.description {
+  margin-top : 10px;
+}
+
+/* ============================================
+   $6-Espace privé
+   ============================================ */
+
+.order {
+  color : maroon;
+}
+
+/* ============================================
+   $7-Dashbord
+   ============================================ */
+
+.btnAjout a  {
+  background-color : antiquewhite;
+  text-decoration: none;
+  color : maroon;
+  padding : 2px;
+}
+
+.tabprod {
+  background-color: floralwhite;
+  border: 3px solid maroon;
+}
+
+.editImage {
+  border: 2px solid burlywood;
+  max-height: 250px;
+}
+
+.dashStatus {
+  color : #31708f;
+}
+
+/* ============================================
+   $8-Pop Up
+   ============================================ */
+
+#popup_name {
+  width: 400px;
+  height: 200px;
+  border: 6px solid chocolate;
+  border-radius: 10px;
+}
+
+/* ============================================
+   $9-Pagination
+   ============================================ */
 
 .pagination {
   text-align: center;
@@ -66,76 +156,56 @@ h2 a, .nameProduct, .dashName {
   font-size: 20px;
 }
 
+/* ============================================
+   $10-Footer
+   ============================================ */
+
 #footer {
-  background-color: silver;
+  background : url("header.jpg") no-repeat center;
 }
 
-#nav {
+#footer a {
+  color : antiquewhite;
+  text-decoration: none;
+}
+
+#footer a:hover {
+  color: orange;
+}
+
+#navFooter {
   font-size: 20px;
 }
 
-//page product
+/* ============================================
+   $11-Boutons
+   ============================================ */
 
-
-.description {
-
-  margin-top : 10px;
-}
-
-//page dashboard
-
-.btnAjout a  {
-  background-color : gray;
-  text-decoration: none;
-  color : orange;
-  padding : 2px;
-
- }
-
-td {
-
-  border: 1px solid black;
-
-}
-
-
-
-.dashStatus {
-  color : #31708f;
-
-}
-//boutons
 .btnCreate, .btnUpdate, .btnConnex, .btnContact, .btnOrder, .btnValidOrder {
-
-  background-color: orange;
-  border: 3px solid silver;
+  background-color: chocolate;
+  border: 1px solid maroon;
   border-radius: 5px;
   color : white;
 }
 
 .btnCreate:hover, .btnUpdate:hover, .btnConnex:hover, .btnContact:hover, .btnOrder:hover,.btnValidOrder:hover  {
-
   color: black;
 }
 
-//message
+/* ============================================
+   $12-Message alerte
+   ============================================ */
 
 .alert {
-
-  font-size: 15px;
-  color :blue;
-
+  font-size: 18px;
+  color : maron;
+  background-color: burlywood;
 }
 
-//pop up
 
-#popup_name {
 
-  width: 400px;
-  height: 200px;
-  border: 6px solid orange;
-  border-radius: 10px;
 
-}
+
+
 
 

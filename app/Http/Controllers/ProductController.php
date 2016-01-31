@@ -14,11 +14,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    //gestiion des boutons category de la nav
     public function __construct() {
         View::composer('partials.nav',function($view){
             $categories = Category::all();
@@ -26,13 +22,14 @@ class ProductController extends Controller
         });
     }
 
-
+    //affiche la page dashbord
     public function index()
     {
        $products = Product::with('tags','category')->paginate(10);
        return view('admin.dash_index', compact('products'));
     }
 
+    //gestion du changement de status sur la page dashbord
     public function changeStatus($id) {
 
         $product = Product::find($id);
@@ -41,33 +38,19 @@ class ProductController extends Controller
         $product->save();
 
         return back()->with(['message'=>trans('app.changeStatus')]);
-
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    //gestion de la page ajout produit et récupération des données nécessaires
     public function create()
     {
         $categories = Category::lists('title','id');
         $tags = Tag::lists('name','id');
-        //dd($tags);
         return view('admin.create', compact('categories','tags'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    //gestion de la page create et validation des champs
     public function store(Request $request)
     {
-        //dd($request->file('image'));
-        //dd($request->all());
         $this->validate($request, [
             'name'=> 'required|max:50',
             'content'=>'required|max:255',
@@ -84,12 +67,12 @@ class ProductController extends Controller
         $product->tags()->attach($request->input('tags'));
 
 
-        //si on ne met pas d'image revient null donc
+        //gestion de l'image dans la page create
         if(!is_null($request->file('thumbnail'))){
-            $im = $request->file('thumbnail');//thumbnail = name du input type file dans page dash index
-            $ext = $im->getClientOriginalExtension();//sert a recuperer l'extension de l'image pour renomer
-            $uri = str_random(12).'.'.$ext;//renome l'image le . concatene
-           ($im->move(env('UPLOAD_PATH','./uploads'),$uri));//move envoi une exception qui arrete le script si erreur
+            $im = $request->file('thumbnail');
+            $ext = $im->getClientOriginalExtension();
+            $uri = str_random(12).'.'.$ext;
+           ($im->move(env('UPLOAD_PATH','./uploads'),$uri));
                 Picture::create([
                     'uri' => $uri,
                     'type' => $ext,
@@ -101,68 +84,50 @@ class ProductController extends Controller
         return redirect()->intended('product');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //dd('show');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //récupération des données nécessaires pour gestion des modifications de produit
     public function edit($id)
     {
         $product = Product::find($id);
         $categories = Category::lists('title','id');
         $tags = Tag::lists('name','id');
 
-
-        //dd($product);
         return view('admin.edit', compact('product','categories','tags'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //gestion de la page modification des produits
     public function update(Request $request, $id)
     {
        $product = Product::find($id);
-    //gestion des tags
-        if(!empty($request->input('tags'))){ //sert a mettre les tags a jour
-            /*$product->tags()->detach();
-            $product->tags()->attach($request->input('tags'));*/
-            $product->tags()->sync($request->input('tags'));//remplace les deux lignes du dessus
+
+        if(!empty($request->input('tags'))){
+            $product->tags()->sync($request->input('tags'));
         }else {
             $product->tags()->detach();
         }
-    //gestion sup image
+
+        //gestion sup image
         if($request->input('delete_picture')=='true'){
             if(!is_null($product->picture)) {
                 Storage::delete($product->picture->uri);
                 $product->picture->delete();
             }
         }
-    //gestion de la modification image
+
+        //gestion de la modification image
         if(!is_null($request->file('thumbnail'))){
             if(!is_null($product->picture)) {
                 Storage::delete($product->picture->uri);
                 $product->picture->delete();
             }
 
-            $im = $request->file('thumbnail');//thumbnail = name du input type file dans page dash index
-            $ext = $im->getClientOriginalExtension();//sert a recuperer l'extension de l'image pour renomer
+            $im = $request->file('thumbnail');
+            $ext = $im->getClientOriginalExtension();
             $uri = str_random(12).'.'.$ext;
             $picture = Picture::create([
                 'uri' => $uri,
@@ -175,28 +140,20 @@ class ProductController extends Controller
 
         }
 
-
-            //dd($request->all());
             $product->update($request->all());
-           //dd($product);
             return redirect('product')->with(['message'=>'success']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //gestion de la supression d'un produit
     public function destroy($id)
     {
         $product = Product::find($id);
         $picture = $product->picture;
         if(!is_null($picture)){
-            Storage::delete($picture->uri);//sup le fichier physique dans uploads storage est defini dans config
-            $picture->delete();//sup dans base de donnée
+            Storage::delete($picture->uri);
+            $picture->delete();
         }
-        $product->delete();//sup le produit + les tables en cascade
+        $product->delete();
         return back()->with(['message'=>'product deleted !']);
     }
 }

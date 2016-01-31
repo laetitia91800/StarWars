@@ -73,12 +73,12 @@
 
       <div class="addImage big">
         <p><b>{{trans('app.addImage')}}</b>
-        <input class="image mam" type="file" name="thumbnail"></p>
+        <input class="dashImage mam w250p" type="file" name="thumbnail"></p>
         @if($errors->has('thumbnail'))<span class="error">{{$errors->first('thumbnail')}}</span>@endif
       </div>
 
 
-      <div class="biggest fr">
+      <div class="bigger fr">
               <input class="btnCreate" type="submit" value="Create">
       </div>
 

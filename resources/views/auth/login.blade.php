@@ -7,6 +7,10 @@
 
     {!! csrf_field() !!}  {{-- nous envoi un token --}}
 
+    @if(Session::has('messageAuth'))
+        @include('partials.flash') {{-- sert a inserer message erreur --}}
+    @endif
+
     <div class="form-text mam bigger">
         <label class="label" for="email">Identifiant :</label><br>
         <input class="input-text" id="email" name="email" type="email" value="{{old('email')}}">
@@ -29,10 +33,6 @@
     <p class="clear">Mot de passe oublié ? ->
     <a href="{{url('contact')}}">Demandez un nouveau mot de passe via notre formulaire contact</a></p>
 </form>
-
-
-
-
 
 
 @stop

@@ -22,7 +22,7 @@ gulp.task('sass_task', function(){
 gulp.task('watch',function(){
     gulp.watch(path.sass,['sass_task']);
     gulp.watch(path.sass, ['knacss_task']);
-    //gulp.watch(path.sass,['js_task'];
+    //gulp.watch(path.sass,['js_task']);
 });
 
 gulp.task('default',['watch']);//gulp.task('default',['watch','phpunit']) expl avec plusieurs taches

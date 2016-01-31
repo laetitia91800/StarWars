@@ -29,8 +29,8 @@
 </div>
 
 <footer id="footer" role="contentinfo" class="line pam txtcenter">
-    <nav id="nav" role="nav">
-        <ul class="pam">
+    <nav id="navFooter" class="pa0">
+        <ul class="pa0">
             <li class="pam inbl"><a href="/">Accueil</a></li>
             <li class="pam inbl"><a href="/mention/">Mentions</a></li>
             <li class="pam inbl"><a href="/contact/">Contact</a></li>

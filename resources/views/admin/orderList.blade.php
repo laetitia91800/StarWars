@@ -2,10 +2,7 @@
 
 @section('content')
 
-      <h1>Liste des commandes :</h1>
-
-
-
+      <h1 class="order">Liste des commandes :</h1>
 
       <table class="tabProd">
 
@@ -19,7 +16,6 @@
 
 
           @forelse($orders as $order)
-
 
               <tr>
                   <td>{{$order->customer_id}}</td>

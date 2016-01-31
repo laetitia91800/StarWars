@@ -76,7 +76,7 @@
             <div class="bigger">
                 <p><b>{{trans('app.addImage')}}</b></p>
                 @if(isset($product->picture->uri))
-                     <p><img src="/uploads/{{$product->picture->uri}}" class="fl w300p" ></p>
+                     <p><img src="/uploads/{{$product->picture->uri}}" class="editImage fl w250p" ></p>
                 @endif
             </div>
 
@@ -89,7 +89,7 @@
 
 
 
-        <div class="clear mam biggest fr">
+        <div class="clear mam bigger fr">
             <input class="btnUpdate" type="submit" value="Valider les modifications">
         </div>
 

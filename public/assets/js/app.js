@@ -7,8 +7,6 @@ $(document).ready(function() {
 
         $("#btnPop").click(function(){
           $("#popup_name").show(1000);
-
-
         });
 
 

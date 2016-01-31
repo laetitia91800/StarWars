@@ -36,8 +36,6 @@
     @endforelse
 
 
-
-
     {!! $products->links() !!}
 
 @stop

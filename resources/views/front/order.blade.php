@@ -3,6 +3,7 @@
 
 @section('content')
 
+
     @if(Session::has('messageOrderValid'))
         @include('partials.flash') {{-- sert a inserer message erreur --}}
     @endif
@@ -10,7 +11,7 @@
     <h1>Espace Privé</h1>
     <h2>Liste de vos commandes :</h2>
 
-    <table class="tabProd">
+    <table class="tabOrder">
 
         <th>Date de commande</th>
         <th>Produit</th>
@@ -20,7 +21,6 @@
 
 
         @forelse($orders as $order)
-
 
             <tr>
                 <td>{{$order->command_at}}</td>

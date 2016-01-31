@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Validator;
 
 class FrontController extends Controller
 {
+    //recupère les catégories pour créer les boutons de la nav et affiche le nombre de produits dans le panier
     public function __construct() {
         View::composer('partials.nav',function($view){
             $categories = Category::all();
@@ -30,39 +31,25 @@ class FrontController extends Controller
             $view->with(compact('categories','number'));
         });
     }
+
     //page d'acceuil
     public function index(){
 
         $products = Product::with('tags','category','picture')->online()->orderBy('published_at')->paginate(5);
-        //$products = Product::paginate(5);
-        return view('front.index',compact('products'));//
+        return view('front.index',compact('products'));
     }
 
     //affiche le produit
     public function showProduct($id, $slug=''){
 
-        /*try {
-            $product = Product::findOrFail($id);//si pas use en haut mettre anti slach \App/
-            //pas de pivot car demande de 1 seul produit
-            //on utilise findOrFail retourner 1 + redirige vers la ressources 404
-        }catch(\Exception $e){
-            //dd($e->getMessage());//var_dump customisé + die
-            return view('front.no_product');
-        }*/
-
-        $product = Product::findOrFail($id);//si pas use en haut mettre anti slach \App/
-        //pas de pivot car demande de 1 seul produit
-        //on utilise findOrFail retourner 1 + redirige vers la ressources 404
+        $product = Product::findOrFail($id);
         return view('front.product',compact('product'));
-
     }
 
     //affiche par catégorie
     public function showProductByCategory ($id, $slug=''){
 
         $products = Category::findOrFail($id)->products()->with('tags', 'picture')->paginate(5);
-
-        //dd($products);
         return view('front.category',compact('products'));
     }
 
@@ -70,29 +57,17 @@ class FrontController extends Controller
     public function showProductByTag($id) {
 
         $products = Tag::findOrFail($id)->products()->paginate(5);
-        //dd($products);
         return view('front.tag',compact('products'));
     }
 
+    //affiche page contact
     public function showContact(){
 
         return view('front.contact');
     }
 
-    public function storeContact(Request $request)
-    {
-
-           /* $validator = Validator::make($request->all(), [
-            'email' => 'required|email',// obligation de remplir la zone|email est la fonction qui verifie
-                                    //que la syntaxe saisie de email correspond a la syntax prévue par laravel
-            'content' =>'required|max:200'//obligation|caractere maxi 200
-
-        ]);
-
-           if($validator -> fails())
-               return back()->withInput()->withErrors($validator);*/
-
-        //ci-dessous remplace ci-dessus commenté
+    //gestion de la page contact
+    public function storeContact(Request $request) {
 
         $this->validate($request, [
             'email'=> 'required|email',
@@ -102,31 +77,26 @@ class FrontController extends Controller
         //methode pour mail
         $content= $request->input('content');
         Mail::send('emails.contact_email',compact('content'), function($m) use($request){
-            $m->from($request->input('email'),'Client');//from = mail client +
-            $m->to(env('EMAIL_TECH'),'admin')->subject('Contact e-boutique'); //mail indiqué dans env + sujet du mail
+            $m->from($request->input('email'),'Client');
+            $m->to(env('EMAIL_TECH'),'admin')->subject('Contact e-boutique');
         });
 
-       //sert a retourner un message de succes //avec with laravel met tout dans un objet Session laravel
-       return back()->with([  //on peut faire aussi redirect('contact')->with(); back retourne a la page sur laquelle on travail
+       // message de succes
+       return back()->with([
            'message'=>trans('app.contactSuccess'),
-           'alert' =>'success' //creer un css pour les differents message
+           'alert' =>'success'
        ]);
 
      }
 
-    /**
-     * @param Request $request
-     */
     //envoyer les infos dans session pour le pannier
     public function storeShopping(Request $request) {
 
-        $id = $request->input('id'); //recupere id qui est dans un champs caché
-        $quantity = $request->input('quantity'); //recupère quantity dans formulaire
-
+        $id = $request->input('id');
+        $quantity = $request->input('quantity');
 
         if ($request->session()->has('shopping')) {
-            $shopping = $request->session()->get('shopping'); //Appel la session pour vérif si il ya deja quelque chose pour
-            //pouvoir rajouter au panier si besoin
+            $shopping = $request->session()->get('shopping');
             if (array_key_exists($id,$shopping)){
                 $shopping[$id] += $quantity;
             }else{
@@ -136,14 +106,13 @@ class FrontController extends Controller
             $shopping[$id] = $quantity;
         }
 
-        $request->session()->put('shopping', $shopping);//sert a stocker la quantité et id dans la session "put"
-        ////ecrase la precedente  automatiquement
+        $request->session()->put('shopping', $shopping);
+
 
         //gestion de nombre de produit dans panier
         if ($request->session()->has('nbrProduct')) {
             $number = $request->session()->get('nbrProduct');
             $number += $quantity;
-
         }else {
             $number = $quantity;
         }
@@ -156,10 +125,10 @@ class FrontController extends Controller
         ]);
     }
 
+
     //affiche le pannier
     public function showShopping(Request $request){
 
-        //dd($request);
           if ($request->session()->has('shopping')){
             $shopping = $request->session()->get('shopping');
 
@@ -172,17 +141,14 @@ class FrontController extends Controller
 
                 $total += ($product->price)* $quantity;
 
-
                 $carts[] = [
                     "id"=> $product->id,
                     "name" => $product->name,
                     "price"=> $product->price,
                     "picture" => $product->picture,
                     "quantity"=> $quantity,
-
                 ];
             }
-
           }else {
 
               return redirect ('/')->with([
@@ -190,12 +156,11 @@ class FrontController extends Controller
                   'alert' =>'vide',
               ]);
           }
-        //dd($number);
-        return view('front.shopping',compact('carts','total'));
 
+        return view('front.shopping',compact('carts','total'));
     }
 
-    //suppression d'un produit dans panier
+    //suppression d'un produit dans le panier
     public function suppProduct($id) {
 
         $shopping = Session()->get('shopping');
@@ -213,21 +178,13 @@ class FrontController extends Controller
     //recup du panier pour commande definitive
     public function storeOrder(Request $request){
 
-        //dd("espace client");
-        //dd(Auth::user()->id); done le id user
-
-        $shopping = $request->session()->get('shopping');//recup session panier
-        $userId = Auth::user()->id;//recup id user
-        $customer = Customer::where('user_id','=',$userId)->firstOrFail();//recup la ligne
-        //entière du 1er user_id
-
-       // dd($customer);
+        $shopping = $request->session()->get('shopping');
+        $userId = Auth::user()->id;
+        $customer = Customer::where('user_id','=',$userId)->firstOrFail();
 
         foreach($shopping as $id => $quantity) {
 
             $product = Product::findOrFail($id);
-
-        //dd($product);
 
             history::create([
                 "product_id"=>$id,
@@ -236,7 +193,6 @@ class FrontController extends Controller
                 "customer_id" => $customer->id,//recup id dans customer
                 "command_at" => Carbon::now(),
             ]);
-
         }
 
         Session()->forget('shopping');
@@ -251,13 +207,11 @@ class FrontController extends Controller
     //espace public client
     public function showOrder(){
 
-        $userId = Auth::user()->id;//recup id user
+        $userId = Auth::user()->id;
         $customer = Customer::where('user_id','=',$userId)->firstOrFail();
         $customerId = $customer->id;
         $orders = history::where('customer_id','=',$customerId)->orderBy('command_at','desc')->get();
 
-
-        //dd($product);
         return view('front.order',compact('orders'));
 
     }
@@ -266,12 +220,11 @@ class FrontController extends Controller
     public function showOrderList() {
 
         $orders = history::orderBy('customer_id')->orderBy('command_at','desc')->paginate(10);
-       // dd($orders);
         return view('admin.orderList',compact('orders'));
     }
 
 
-
+    //affiche la page des mentions legales
     public function mention() {
 
         return view('admin.mention');

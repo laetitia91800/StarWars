@@ -7,7 +7,6 @@
 
         @foreach($carts as $cart)
 
-
             <div class="product mw960p center clear">
 
                 <div  class="image fl clear">
@@ -25,7 +24,7 @@
                 </div>
 
                 <p class=" mam big fl"><b>{{trans('app.price')}}</b> {{$cart['price']}} €</p><br>
-                <p class ="big ma50"><b> Quantité commandé : </b>{{$cart['quantity']}}</p>
+                <p class ="big ma50"><b> Quantité commandé : </b>{{$cart['quantity']}}</p><br>
 
 
             </div><br>
@@ -44,11 +43,6 @@
         <div class="mam bigger clear fr ">
             <input id ="btnPop" class="btnValidOrder" type="submit" name="order" value="Commander">
         </div>
-
-
-
-
-
 
 
 @stop

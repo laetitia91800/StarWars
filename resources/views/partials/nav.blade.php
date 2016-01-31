@@ -29,7 +29,7 @@
 
 
         <li class="panier pas inbl fr ma5"><a href="/shopping/" class="right"><img src={{url("assets/imgTheme/pictoPanier.png")}}></a></li>
-        <p class="txtright">{{$number}} produits</p>
+        <p class="nbrProduct txtright">{{$number}} produits</p>
 
 
     </ul>
